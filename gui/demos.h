@@ -35,7 +35,6 @@ GtkWidget *do_expander (GtkWidget *do_widget);
 GtkWidget *do_filtermodel (GtkWidget *do_widget);
 GtkWidget *do_foreigndrawing (GtkWidget *do_widget);
 GtkWidget *do_gestures (GtkWidget *do_widget);
-GtkWidget *do_glarea (GtkWidget *do_widget);
 GtkWidget *do_headerbar (GtkWidget *do_widget);
 GtkWidget *do_hypertext (GtkWidget *do_widget);
 GtkWidget *do_iconview (GtkWidget *do_widget);
@@ -133,7 +132,7 @@ Demo child6[] = {
 
 Demo child7[] = {
   { "printing", "Printing", "printing.c", do_printing, NULL },
-  { "pagesetup", "Page Setup", "pagesetup.c", do_pagesetup, NULL },
+ // { "pagesetup", "Page Setup", "pagesetup.c", do_pagesetup, NULL },
   { NULL } 
 };
 
@@ -170,7 +169,6 @@ Demo gtk_demos[] = {
   { "menus", "Menus", "menus.c", do_menus, NULL }, 
   { "modelbutton", "Model Button", "modelbutton.c", do_modelbutton, NULL }, 
   { NULL, "Offscreen Windows", NULL, NULL, child5 }, 
-  { "glarea", "OpenGL Area", "glarea.c", do_glarea, NULL }, 
   { NULL, "Overlay", NULL, NULL, child6 }, 
   { "panes", "Paned Widgets", "panes.c", do_panes, NULL }, 
   { NULL, "Pango", NULL, NULL, child8 }, 

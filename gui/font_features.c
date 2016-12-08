@@ -9,10 +9,10 @@
  */
 
 #include <gtk/gtk.h>
-#include <pango/pangofc-font.h>
-#include <hb.h>
-#include <hb-ot.h>
-#include <hb-ft.h>
+//#include <pango/pangofc-font.h>
+//#include <hb.h>
+//#include <hb-ot.h>
+//#include <hb-ft.h>
 
 static GtkWidget *label;
 static GtkWidget *settings;
@@ -45,7 +45,7 @@ update_display (void)
   const char *text;
   gboolean has_feature;
   int i;
-  hb_tag_t lang_tag;
+  //hb_tag_t lang_tag;
   GtkTreeModel *model;
   GtkTreeIter iter;
   const char *lang;
@@ -95,10 +95,11 @@ update_display (void)
     {
       model = gtk_combo_box_get_model (GTK_COMBO_BOX (script_lang));
       gtk_tree_model_get (model, &iter,
-                          3, &lang_tag,
+                          3, NULL,
+                          //3, &lang_tag,
                           -1);
 
-      lang = hb_language_to_string (hb_ot_tag_to_language (lang_tag));
+      //lang = hb_language_to_string (hb_ot_tag_to_language (lang_tag));
     }
   else
     lang = NULL;
@@ -131,8 +132,9 @@ get_pango_font (void)
   return pango_font_map_load_font (map, context, desc);
 }
 
+#if 0
 static struct { const char *name; hb_script_t script; } script_names[] = {
-  { "Common", HB_SCRIPT_COMMON },
+     	{ "Common", HB_SCRIPT_COMMON },
   { "Inherited", HB_SCRIPT_INHERITED },
   { "Unknown", HB_SCRIPT_UNKNOWN },
   { "Arabic", HB_SCRIPT_ARABIC },
@@ -163,7 +165,7 @@ static struct { const char *name; hb_script_t script; } script_names[] = {
 };
 
 static struct { const char *name; hb_tag_t tag; } language_names[] = {
-  { "Arabic", HB_TAG ('A','R','A',' ') },
+      	{ "Arabic", HB_TAG ('A','R','A',' ') },
   { "Romanian", HB_TAG ('R','O','M',' ') },
   { "Skolt Sami", HB_TAG ('S','K','S',' ') },
   { "Northern Sami", HB_TAG ('N','S','M',' ') },
@@ -176,10 +178,11 @@ static struct { const char *name; hb_tag_t tag; } language_names[] = {
   { "German", HB_TAG ('D','E','U',' ') }
   /* FIXME: complete */
 };
+#endif
 
 typedef struct {
-  hb_tag_t script_tag;
-  hb_tag_t lang_tag;
+  //hb_tag_t script_tag;
+  //hb_tag_t lang_tag;
   unsigned int script_index;
   unsigned int lang_index;
 } TagPair;
@@ -189,7 +192,8 @@ tag_pair_hash (gconstpointer data)
 {
   const TagPair *pair = data;
 
-  return pair->script_tag + pair->lang_tag;
+ // return pair->script_tag + pair->lang_tag;
+ return 1;
 }
 
 static gboolean
@@ -198,16 +202,18 @@ tag_pair_equal (gconstpointer a, gconstpointer b)
   const TagPair *pair_a = a;
   const TagPair *pair_b = b;
 
-  return pair_a->script_tag == pair_b->script_tag && pair_a->lang_tag == pair_b->lang_tag;
+ // return pair_a->script_tag == pair_b->script_tag && pair_a->lang_tag == pair_b->lang_tag;
+ return 1;
 }
 
 static void
 update_script_combo (void)
 {
+#if 0
   GtkListStore *store;
   hb_font_t *hb_font;
   gint i, j, k, l;
-  FT_Face ft_face;
+  //FT_Face ft_face;
   PangoFont *pango_font;
   GHashTable *tags;
   GHashTableIter iter;
@@ -216,8 +222,8 @@ update_script_combo (void)
   store = gtk_list_store_new (4, G_TYPE_STRING, G_TYPE_UINT, G_TYPE_UINT, G_TYPE_UINT);
 
   pango_font = get_pango_font ();
-  ft_face = pango_fc_font_lock_face (PANGO_FC_FONT (pango_font)),
-  hb_font = hb_ft_font_create (ft_face, NULL);
+  //ft_face = pango_fc_font_lock_face (PANGO_FC_FONT (pango_font)),
+  //hb_font = hb_ft_font_create (ft_face, NULL);
 
   tags = g_hash_table_new_full (tag_pair_hash, tag_pair_equal, g_free, NULL);
 
@@ -336,18 +342,20 @@ update_script_combo (void)
 
   gtk_combo_box_set_model (GTK_COMBO_BOX (script_lang), GTK_TREE_MODEL (store));
   gtk_combo_box_set_active (GTK_COMBO_BOX (script_lang), 0);
+ #endif
 }
 
 static void
 update_features (void)
 {
+#if 0
   gint i, j, k;
   GtkTreeModel *model;
   GtkTreeIter iter;
   guint script_index, lang_index;
   PangoFont *pango_font;
-  FT_Face ft_face;
-  hb_font_t *hb_font;
+  //FT_Face ft_face;
+  //hb_font_t *hb_font;
 
   for (i = 0; i < num_features; i++)
     gtk_widget_set_opacity (icon[i], 0);
@@ -364,8 +372,8 @@ update_features (void)
                       -1);
 
   pango_font = get_pango_font ();
-  ft_face = pango_fc_font_lock_face (PANGO_FC_FONT (pango_font)),
-  hb_font = hb_ft_font_create (ft_face, NULL);
+  //ft_face = pango_fc_font_lock_face (PANGO_FC_FONT (pango_font)),
+  //hb_font = hb_ft_font_create (ft_face, NULL);
 
   if (hb_font)
     {
@@ -402,6 +410,7 @@ update_features (void)
 
   pango_fc_font_unlock_face (PANGO_FC_FONT (pango_font));
   g_object_unref (pango_font);
+#endif
 }
 
 static void

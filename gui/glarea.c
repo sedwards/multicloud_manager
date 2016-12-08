@@ -5,9 +5,11 @@
 
 #include <math.h>
 #include <gtk/gtk.h>
-#include <epoxy/gl.h>
+//#include <epoxy/gl.h>
 
 static GtkWidget *demo_window = NULL;
+
+#if 0
 
 /* the GtkGLArea widget */
 static GtkWidget *gl_area = NULL;
@@ -424,3 +426,5 @@ do_glarea (GtkWidget *do_widget)
 
   return demo_window;
 }
+#endif
+

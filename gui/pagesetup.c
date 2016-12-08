@@ -6,7 +6,7 @@
 
 #include <math.h>
 #include <gtk/gtk.h>
-#include <gtk/gtkunixprint.h>
+//#include <gtk/gtkunixprint.h>
 
 static void
 done_cb (GtkDialog *dialog, gint response, gpointer data)

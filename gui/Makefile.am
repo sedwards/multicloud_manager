@@ -125,11 +125,11 @@ gsettings_SCHEMAS = \
 
 #@GSETTINGS_RULES@
 
-demos.h: $(demos) geninclude.pl
-	 $(AM_V_GEN) (here=`pwd` ; cd $(srcdir) && $(PERL) $$here/geninclude.pl $(demos)) > demos.h
+#demos.h: $(demos) geninclude.pl
+#	 $(AM_V_GEN) (here=`pwd` ; cd $(srcdir) && $(PERL) $$here/geninclude.pl $(demos)) > demos.h
 
-demos.h.win32: $(demos_base) geninclude.pl
-	 $(AM_V_GEN) (here=`pwd` ; cd $(srcdir) && $(PERL) $$here/geninclude.pl $(demos_base)) > demos.h.win32
+#demos.h.win32: $(demos_base) geninclude.pl
+#	 $(AM_V_GEN) (here=`pwd` ; cd $(srcdir) && $(PERL) $$here/geninclude.pl $(demos_base)) > demos.h.win32
 
 nodist_gtk3_demo_SOURCES = demos.h
 
@@ -150,8 +150,9 @@ gtk3_demo_application_LDADD = $(LDADDS)
 
 #resource_files = $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir) --generate-dependencies $(builddir)/demo.gresource.xml)
 
-demo_resources.o: demo.gresource.xml $(resource_files)
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $(srcdir)/demo.gresource.xml
+#demo_resources.o: demo.gresource.xml $(resource_files)
+#	glib-compile-resources --target=$@ --sourcedir=. --generate-source demo.gresource.xml
+	#$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $(srcdir)/demo.gresource.xml
 
 iconthemedir = $(datadir)/icons/hicolor
 
