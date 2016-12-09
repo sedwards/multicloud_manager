@@ -6,13 +6,14 @@ enum {
 };
 
 GtkTreeModel* createModel() {
-    const gchar *files[] = {"gftp-48x48.png", "gftp-16x16.png",
+    const gchar *files[] = {"GTK_STOCK_NETWORK", "gftp-16x16.png",
                             "hamimi.jpg", "bush.jpg"};
     gchar *stocks[] = {
         GTK_STOCK_DIALOG_WARNING,
         GTK_STOCK_STOP,
         GTK_STOCK_NEW,
         GTK_STOCK_CLEAR,
+	GTK_STOCK_NETWORK,
         GTK_STOCK_OPEN    
     };
 
@@ -21,6 +22,7 @@ GtkTreeModel* createModel() {
         "STOP",
         "NEW",
         "GTK_STOCK_CLEAR",
+	"GTK_STOCK_NETWORK",
         "GTK_STOCK_OPEN"
     };
 
@@ -92,14 +94,14 @@ int main(int argc, char *argv[]) {
 
     renderer = gtk_cell_renderer_pixbuf_new();
     column = gtk_tree_view_column_new_with_attributes(
-                     "Icon", renderer, 
+                     "Provider", renderer,
                      "pixbuf", PIXBUF_COL,
                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW (treeView), column);
 
     renderer = gtk_cell_renderer_text_new();
     column = gtk_tree_view_column_new_with_attributes(
-                     "Filename", renderer,
+                     "Instance", renderer,
                      "text", TEXT_COL,
                       NULL);
     gtk_tree_view_append_column(GTK_TREE_VIEW (treeView), column);
