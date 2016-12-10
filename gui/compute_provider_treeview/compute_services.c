@@ -22,7 +22,7 @@ GtkTreeModel* createModel() {
 	GTK_STOCK_NETWORK,
 	GTK_STOCK_NETWORK,
 	GTK_STOCK_NETWORK,
-	GTK_STOCK_NETWORK,
+	GTK_STOCK_NETWORK
     };
 
     gchar *stockNames[] = {
@@ -30,7 +30,8 @@ GtkTreeModel* createModel() {
         "Host2",
         "Host4",
         "Host5",
-        "Host6"
+        "Host6",
+	"Container1"
     };
 
     GtkWidget *cellView;
