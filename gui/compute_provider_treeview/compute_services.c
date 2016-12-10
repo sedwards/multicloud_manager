@@ -6,24 +6,31 @@ enum {
 };
 
 GtkTreeModel* createModel() {
-    const gchar *files[] = {"GTK_STOCK_NETWORK", "gftp-16x16.png",
-                            "hamimi.jpg", "bush.jpg"};
+    const gchar *files[] = { "vCloud", "OpenStack",
+                            "Amazon", "Azure"};
+//    gchar *stocks[] = {
+//	GTK_STOCK_NETWORK
+//    };
+
+//    gchar *stockNames[] = {
+//	"GTK_STOCK_NETWORK"
+//    };
+
     gchar *stocks[] = {
-        GTK_STOCK_DIALOG_WARNING,
-        GTK_STOCK_STOP,
-        GTK_STOCK_NEW,
-        GTK_STOCK_CLEAR,
 	GTK_STOCK_NETWORK,
-        GTK_STOCK_OPEN    
+	GTK_STOCK_NETWORK,
+	GTK_STOCK_NETWORK,
+	GTK_STOCK_NETWORK,
+	GTK_STOCK_NETWORK,
+	GTK_STOCK_NETWORK,
     };
 
     gchar *stockNames[] = {
-        "WARNING",
-        "STOP",
-        "NEW",
-        "GTK_STOCK_CLEAR",
-	"GTK_STOCK_NETWORK",
-        "GTK_STOCK_OPEN"
+        "Host1",
+        "Host2",
+        "Host4",
+        "Host5",
+        "Host6"
     };
 
     GtkWidget *cellView;
@@ -55,7 +62,6 @@ GtkTreeModel* createModel() {
              gdk_pixbuf_unref(pixbuf);
         }
     }
-
     return GTK_TREE_MODEL(store);
 }
 
