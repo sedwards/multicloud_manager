@@ -10,6 +10,7 @@ struct _Demo
   Demo *children;
 };
 
+#if 0
 GtkWidget *do_appwindow (GtkWidget *do_widget);
 GtkWidget *do_assistant (GtkWidget *do_widget);
 GtkWidget *do_builder (GtkWidget *do_widget);
@@ -113,6 +114,11 @@ Demo testgtk_demos[] = {
   { "Tool Palette", "toolpalette.c", do_toolpalette, NULL }, 
   { "Tree View", NULL, NULL, child0 }, 
   { "UI Manager", "ui_manager.c", do_ui_manager, NULL },
+  { NULL } 
+};
+#endif
+
+Demo testgtk_demos[] = {
   { NULL } 
 };
 
