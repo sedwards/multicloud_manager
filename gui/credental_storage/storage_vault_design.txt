@@ -1,0 +1,4 @@
+ - locally store keypairs encrypted
+ - checkout keypairs from git
+ - upload/download and save keypairs in cyberark
+
