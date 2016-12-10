@@ -836,7 +836,7 @@ create_tree (void)
 
   cell = gtk_cell_renderer_text_new ();
 
-  column = gtk_tree_view_column_new_with_attributes ("Widget (double click for demo)",
+  column = gtk_tree_view_column_new_with_attributes ("Cloud Providers",
 						     cell,
 						     "text", TITLE_COLUMN,
 						     "style", STYLE_COLUMN,
@@ -860,7 +860,7 @@ create_tree (void)
 				  GTK_POLICY_AUTOMATIC);
   gtk_container_add (GTK_CONTAINER (scrolled_window), tree_view);
 
-  label = gtk_label_new ("Widget (double click for demo)");
+  label = gtk_label_new ("Cloud Providers");
 
   box = gtk_notebook_new ();
   gtk_notebook_append_page (GTK_NOTEBOOK (box), scrolled_window, label);
@@ -951,7 +951,7 @@ main (int argc, char **argv)
   setup_default_icon ();
   
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW (window), "GTK+ Code Demos");
+  gtk_window_set_title (GTK_WINDOW (window), "Multicloud Management Console");
   g_signal_connect_after (window, "destroy",
 		    G_CALLBACK (gtk_main_quit), NULL);
 
@@ -975,7 +975,7 @@ main (int argc, char **argv)
 
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
 			    create_text (&source_buffer, TRUE),
-			    gtk_label_new_with_mnemonic ("_Source"));
+			    gtk_label_new_with_mnemonic ("_Console"));
 
 
   tag = gtk_text_buffer_create_tag (source_buffer, "comment",
