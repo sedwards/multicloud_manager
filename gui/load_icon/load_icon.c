@@ -106,15 +106,23 @@ int main(int argc, char *argv[]) {
 
     GtkWidget *button;
     GtkWidget *button2;
+    GtkWidget *button3;
+    GtkWidget *button4;
     
     button = hello_world_button_new (10);
     button2 = hello_world_button_new (10);
+
+    button3 = gtk_button_new_from_icon_name("network-wired", GTK_ICON_SIZE_BUTTON); 
+    button4 = gtk_button_new_from_icon_name("network-wired", GTK_ICON_SIZE_LARGE_TOOLBAR); 
+
     g_signal_connect (button, "clicked",
                       G_CALLBACK (hello_world_dialog_show), NULL);
 
 
     gtk_container_add(GTK_CONTAINER(vbox), button);
     gtk_container_add(GTK_CONTAINER(vbox), button2);
+    gtk_container_add(GTK_CONTAINER(vbox), button3);
+    gtk_container_add(GTK_CONTAINER(vbox), button4);
     
     g_signal_connect(G_OBJECT(window), "destroy",
                      G_CALLBACK(gtk_main_quit), NULL);
