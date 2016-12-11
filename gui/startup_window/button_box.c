@@ -53,7 +53,7 @@ static GtkWidget *icon_label_box( gchar     *stock_icon_name,
 
 
 static GtkWidget *
-create_bbox (gint  horizontal,
+create_inventory_bbox (gint  horizontal,
 	     char *title, 
 	     gint  spacing,
 	     gint  layout)
@@ -136,7 +136,7 @@ create_bbox (gint  horizontal,
     
     
     
-//#if 0
+#if 0
     /* stock buttons */
     gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), layout);
     gtk_box_set_spacing (GTK_BOX (bbox), spacing);
@@ -146,12 +146,165 @@ create_bbox (gint  horizontal,
     
     button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
     gtk_container_add (GTK_CONTAINER (bbox), button);
-    
+#endif
     button = gtk_button_new_from_stock (GTK_STOCK_HELP);
     gtk_container_add (GTK_CONTAINER (bbox), button);
-//#endif
+
     
   return frame;
+}
+
+
+static GtkWidget *
+create_admin_bbox (gint  horizontal,
+             char *title,
+             gint  spacing,
+             gint  layout)
+{
+    GtkWidget *frame;
+    GtkWidget *bbox;
+    GtkWidget *button;
+    
+    frame = gtk_frame_new (title);
+    
+    if (horizontal)
+        bbox = gtk_hbutton_box_new ();
+    else
+        bbox = gtk_vbutton_box_new ();
+    
+    gtk_container_set_border_width (GTK_CONTAINER (bbox), 5);
+    gtk_container_add (GTK_CONTAINER (frame), bbox);
+    
+    //////////////////////////////////////////////
+    /* Python Command Prompt */
+    GtkWidget *python_cmd_button;
+    GtkWidget *box;
+    
+    /* Create a instance button */
+    python_cmd_button = gtk_button_new ();
+    
+    /* Connect the "clicked" signal of the button to our callback */
+    g_signal_connect (python_cmd_button, "clicked",
+                      G_CALLBACK (callback), (gpointer) "cool button");
+    
+    /* This calls our box creating function */
+    box = icon_label_box ("utilities-terminal", "Python Console");
+    
+    /* Pack and show all our widgets */
+    gtk_container_add (GTK_CONTAINER (python_cmd_button), box);
+    gtk_container_add (GTK_CONTAINER (bbox), python_cmd_button);
+    
+    //////////////////////////////////////
+    
+    //////////////////////////////////////////////
+    /* PowerShell Command Prompt */
+    GtkWidget *ps_cmd_button;
+  
+    
+    /* Create a instance button */
+    ps_cmd_button = gtk_button_new ();
+    
+    /* Connect the "clicked" signal of the button to our callback */
+    g_signal_connect (ps_cmd_button, "clicked",
+                      G_CALLBACK (callback), (gpointer) "cool button");
+    
+    /* This calls our box creating function */
+    box = icon_label_box ("utilities-terminal-symbolic", "Powershell Console");
+    
+    /* Pack and show all our widgets */
+    gtk_container_add (GTK_CONTAINER (ps_cmd_button), box);
+    gtk_container_add (GTK_CONTAINER (bbox), ps_cmd_button);
+    
+    //////////////////////////////////////
+    
+    return frame;
+}
+
+
+static GtkWidget *
+create_monitoring_bbox (gint  horizontal,
+                   char *title,
+                   gint  spacing,
+                   gint  layout)
+{
+    GtkWidget *frame;
+    GtkWidget *bbox;
+    GtkWidget *button;
+    
+    frame = gtk_frame_new (title);
+    
+    if (horizontal)
+        bbox = gtk_hbutton_box_new ();
+    else
+        bbox = gtk_vbutton_box_new ();
+    
+    gtk_container_set_border_width (GTK_CONTAINER (bbox), 5);
+    gtk_container_add (GTK_CONTAINER (frame), bbox);
+    
+    //////////////////////////////////////////////
+    /* Command Prompt */
+    GtkWidget *instance_button;
+    GtkWidget *box;
+    
+    /* Create a instance button */
+    instance_button = gtk_button_new ();
+    
+    /* Connect the "clicked" signal of the button to our callback */
+    g_signal_connect (instance_button, "clicked",
+                      G_CALLBACK (callback), (gpointer) "cool button");
+    
+    /* This calls our box creating function */
+    box = icon_label_box ("network-idle", "Providers and Instances");
+    
+    /* Pack and show all our widgets */
+    gtk_container_add (GTK_CONTAINER (instance_button), box);
+    gtk_container_add (GTK_CONTAINER (bbox), instance_button);
+    
+    //////////////////////////////////////
+    return frame;
+}
+
+static GtkWidget *
+create_misc_bbox (gint  horizontal,
+                   char *title,
+                   gint  spacing,
+                   gint  layout)
+{
+    GtkWidget *frame;
+    GtkWidget *bbox;
+    GtkWidget *button;
+    
+    frame = gtk_frame_new (title);
+    
+    if (horizontal)
+        bbox = gtk_hbutton_box_new ();
+    else
+        bbox = gtk_vbutton_box_new ();
+    
+    gtk_container_set_border_width (GTK_CONTAINER (bbox), 5);
+    gtk_container_add (GTK_CONTAINER (frame), bbox);
+    
+    //////////////////////////////////////////////
+    /* Command Prompt */
+    GtkWidget *instance_button;
+    GtkWidget *box;
+    
+    /* Create a instance button */
+    instance_button = gtk_button_new ();
+    
+    /* Connect the "clicked" signal of the button to our callback */
+    g_signal_connect (instance_button, "clicked",
+                      G_CALLBACK (callback), (gpointer) "cool button");
+    
+    /* This calls our box creating function */
+    box = icon_label_box ("network-idle", "Providers and Instances");
+    
+    /* Pack and show all our widgets */
+    gtk_container_add (GTK_CONTAINER (instance_button), box);
+    gtk_container_add (GTK_CONTAINER (bbox), instance_button);
+    
+    //////////////////////////////////////
+    return frame;
 }
 
 GtkWidget *
@@ -194,19 +347,21 @@ do_button_box (GtkWidget *do_widget)
     gtk_container_add (GTK_CONTAINER (frame_horz), vbox);
 
     gtk_box_pack_start (GTK_BOX (vbox), 
-			create_bbox (TRUE, "Inventories", 40, GTK_BUTTONBOX_SPREAD),
+			create_inventory_bbox (TRUE, "Inventories", 1, GTK_BUTTONBOX_SPREAD),
 			TRUE, TRUE, 0);
 
-    gtk_box_pack_start (GTK_BOX (vbox), 
-			create_bbox (TRUE, "Monitoring", 40, GTK_BUTTONBOX_EDGE),
+    gtk_box_pack_start (GTK_BOX (vbox),
+			create_monitoring_bbox (TRUE, "Monitoring", 1, GTK_BUTTONBOX_SPREAD),
+//			create_bbox (TRUE, "Monitoring", 40, GTK_BUTTONBOX_EDGE),
+			TRUE, TRUE, 5);
+    
+    gtk_box_pack_start (GTK_BOX (vbox),
+//			create_admin_bbox (TRUE, "Administration", 40, GTK_BUTTONBOX_SPREAD),
+			create_admin_bbox (TRUE, "Administration", 1, GTK_BUTTONBOX_START),
 			TRUE, TRUE, 5);
     
     gtk_box_pack_start (GTK_BOX (vbox), 
-			create_bbox (TRUE, "Administration", 40, GTK_BUTTONBOX_START),
-			TRUE, TRUE, 5);
-    
-    gtk_box_pack_start (GTK_BOX (vbox), 
-			create_bbox (TRUE, "Misc", 40, GTK_BUTTONBOX_END),
+			create_misc_bbox (TRUE, "Misc", 1, GTK_BUTTONBOX_END),
 			TRUE, TRUE, 5);
 
       
