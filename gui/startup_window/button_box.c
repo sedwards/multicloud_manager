@@ -32,7 +32,7 @@ static GtkWidget *icon_label_box( gchar     *stock_icon_name,
     icon_theme = gtk_icon_theme_get_default ();
     
     /* stock icon from theme */
-    icon = gtk_icon_theme_load_icon (icon_theme, stock_icon_name, 32, 0, NULL);
+    icon = gtk_icon_theme_load_icon (icon_theme, stock_icon_name, 48, 0, NULL);
     image = gtk_image_new_from_pixbuf (icon);
     
     /* From local file if not from theme */
@@ -146,10 +146,10 @@ create_inventory_bbox (gint  horizontal,
     
     button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
     gtk_container_add (GTK_CONTAINER (bbox), button);
-#endif
+
     button = gtk_button_new_from_stock (GTK_STOCK_HELP);
     gtk_container_add (GTK_CONTAINER (bbox), button);
-
+#endif
     
   return frame;
 }
@@ -216,35 +216,10 @@ create_admin_bbox (gint  horizontal,
     gtk_container_add (GTK_CONTAINER (bbox), ps_cmd_button);
     
     //////////////////////////////////////
-    
-    return frame;
-}
 
-
-static GtkWidget *
-create_monitoring_bbox (gint  horizontal,
-                   char *title,
-                   gint  spacing,
-                   gint  layout)
-{
-    GtkWidget *frame;
-    GtkWidget *bbox;
-    GtkWidget *button;
-    
-    frame = gtk_frame_new (title);
-    
-    if (horizontal)
-        bbox = gtk_hbutton_box_new ();
-    else
-        bbox = gtk_vbutton_box_new ();
-    
-    gtk_container_set_border_width (GTK_CONTAINER (bbox), 5);
-    gtk_container_add (GTK_CONTAINER (frame), bbox);
-    
     //////////////////////////////////////////////
-    /* Command Prompt */
+    /* System Monitor */
     GtkWidget *instance_button;
-    GtkWidget *box;
     
     /* Create a instance button */
     instance_button = gtk_button_new ();
@@ -254,13 +229,36 @@ create_monitoring_bbox (gint  horizontal,
                       G_CALLBACK (callback), (gpointer) "cool button");
     
     /* This calls our box creating function */
-    box = icon_label_box ("network-idle", "Providers and Instances");
+    box = icon_label_box ("utilities-system-monitor", "Monitoring");
     
     /* Pack and show all our widgets */
     gtk_container_add (GTK_CONTAINER (instance_button), box);
     gtk_container_add (GTK_CONTAINER (bbox), instance_button);
     
     //////////////////////////////////////
+    
+    
+    //////////////////////////////////////////////
+    /* Application Settings */
+    GtkWidget *settings_button;
+    
+    
+    /* Create a instance button */
+    settings_button = gtk_button_new ();
+    
+    /* Connect the "clicked" signal of the button to our callback */
+    g_signal_connect (settings_button, "clicked",
+                      G_CALLBACK (callback), (gpointer) "cool button");
+    
+    /* This calls our box creating function */
+    box = icon_label_box ("emblem-system", "Multicloud Settings");
+    
+    /* Pack and show all our widgets */
+    gtk_container_add (GTK_CONTAINER (settings_button), box);
+    gtk_container_add (GTK_CONTAINER (bbox), settings_button);
+    
+    //////////////////////////////////////
+    
     return frame;
 }
 
@@ -284,26 +282,11 @@ create_misc_bbox (gint  horizontal,
     gtk_container_set_border_width (GTK_CONTAINER (bbox), 5);
     gtk_container_add (GTK_CONTAINER (frame), bbox);
     
-    //////////////////////////////////////////////
-    /* Command Prompt */
-    GtkWidget *instance_button;
-    GtkWidget *box;
-    
-    /* Create a instance button */
-    instance_button = gtk_button_new ();
-    
-    /* Connect the "clicked" signal of the button to our callback */
-    g_signal_connect (instance_button, "clicked",
-                      G_CALLBACK (callback), (gpointer) "cool button");
-    
-    /* This calls our box creating function */
-    box = icon_label_box ("network-idle", "Providers and Instances");
-    
-    /* Pack and show all our widgets */
-    gtk_container_add (GTK_CONTAINER (instance_button), box);
-    gtk_container_add (GTK_CONTAINER (bbox), instance_button);
-    
     //////////////////////////////////////
+
+    button = gtk_button_new_from_stock (GTK_STOCK_HELP);
+    gtk_container_add (GTK_CONTAINER (bbox), button);
+    
     return frame;
 }
 
@@ -347,21 +330,21 @@ do_button_box (GtkWidget *do_widget)
     gtk_container_add (GTK_CONTAINER (frame_horz), vbox);
 
     gtk_box_pack_start (GTK_BOX (vbox), 
-			create_inventory_bbox (TRUE, "Inventories", 1, GTK_BUTTONBOX_SPREAD),
+			create_inventory_bbox (TRUE, "Inventories", 1, GTK_BUTTONBOX_CENTER),
 			TRUE, TRUE, 0);
 
-    gtk_box_pack_start (GTK_BOX (vbox),
-			create_monitoring_bbox (TRUE, "Monitoring", 1, GTK_BUTTONBOX_SPREAD),
+//    gtk_box_pack_start (GTK_BOX (vbox),
+//			create_monitoring_bbox (TRUE, "Monitoring", 1, GTK_BUTTONBOX_CENTER),
 //			create_bbox (TRUE, "Monitoring", 40, GTK_BUTTONBOX_EDGE),
-			TRUE, TRUE, 5);
+//			TRUE, TRUE, 5);
     
     gtk_box_pack_start (GTK_BOX (vbox),
-//			create_admin_bbox (TRUE, "Administration", 40, GTK_BUTTONBOX_SPREAD),
-			create_admin_bbox (TRUE, "Administration", 1, GTK_BUTTONBOX_START),
+			create_admin_bbox (TRUE, "Administration", 1, GTK_BUTTONBOX_CENTER),
+//			create_admin_bbox (TRUE, "Administration", 1, GTK_BUTTONBOX_START),
 			TRUE, TRUE, 5);
     
     gtk_box_pack_start (GTK_BOX (vbox), 
-			create_misc_bbox (TRUE, "Misc", 1, GTK_BUTTONBOX_END),
+			create_misc_bbox (TRUE, "Misc", 1, GTK_BUTTONBOX_CENTER),
 			TRUE, TRUE, 5);
 
       
@@ -395,6 +378,7 @@ do_button_box (GtkWidget *do_widget)
 
   if (!gtk_widget_get_visible (window))
     {
+      gtk_window_set_default_size (GTK_WINDOW (window), 600, 400);
       gtk_widget_show_all (window);
     }
   else
