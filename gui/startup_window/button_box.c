@@ -14,7 +14,7 @@ create_bbox (gint  horizontal,
   GtkWidget *frame;
   GtkWidget *bbox;
   GtkWidget *button;
-  GtkWidget *button4;
+  GtkWidget *button2;
     
   frame = gtk_frame_new (title);
 
@@ -39,21 +39,46 @@ create_bbox (gint  horizontal,
   button = gtk_button_new_from_stock (GTK_STOCK_HELP);
   gtk_container_add (GTK_CONTAINER (bbox), button);
 */
+    
     /* Case for a button with an icon */
     GtkIconTheme *icon_theme;
+    icon_theme = gtk_icon_theme_get_default ();
+
     GdkPixbuf *icon;
     GtkWidget *icon_image;
-    
-    icon_theme = gtk_icon_theme_get_default ();
-    icon = gtk_icon_theme_load_icon (icon_theme,  "network-wired", 40, 0, NULL);
+    icon = gtk_icon_theme_load_icon (icon_theme,  "network-idle", 40, 0, NULL);
     
     icon_image = gtk_image_new_from_pixbuf (icon);
- //   gtk_misc_set_padding (GTK_MISC (icon_image), 10, 10);
+ //      gtk_misc_set_padding (GTK_MISC (icon_image), 10, 10);
     g_object_unref (G_OBJECT (icon));
-    button4 = gtk_button_new ();
-    gtk_container_add (GTK_CONTAINER (button4), icon_image);
-    gtk_container_add (GTK_CONTAINER (bbox), button4);
+    button = gtk_button_new ();
+ //   gtk_button_set_label (button, "Providers and Instances");
+ //   gtk_button_set_always_show_image  (button, TRUE);
+    gtk_container_add (GTK_CONTAINER (button), icon_image);
+    gtk_container_add (GTK_CONTAINER (bbox), button);
 
+    
+    
+ //////////////////////////////////
+    
+    /* Case for a button with an icon */
+    // GtkIconTheme *icon_theme;
+    GdkPixbuf *icon2;
+    GtkWidget *icon_image2;
+    
+//    icon_theme = gtk_icon_theme_get_default ();
+    icon2 = gtk_icon_theme_load_icon (icon_theme,  "network-wired", 40, 0, NULL);
+    
+    icon_image2 = gtk_image_new_from_pixbuf (icon2);
+//    gtk_misc_set_padding (GTK_MISC (icon_image), 10, 10);
+    g_object_unref (G_OBJECT (icon2));
+    button2 = gtk_button_new ();
+//    gtk_button_set_label (button2, "Network Configurations");
+    gtk_container_add (GTK_CONTAINER (button2), icon_image2);
+    gtk_container_add (GTK_CONTAINER (bbox), button2);
+
+ ///////////////////////////////////////
+    
   return frame;
 }
 
