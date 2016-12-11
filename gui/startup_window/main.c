@@ -925,6 +925,8 @@ setup_default_icon (void)
     }
 }
 
+void mcm_gtk_platform_specific_init(void);
+
 int
 main (int argc, char **argv)
 {
@@ -1001,7 +1003,9 @@ main (int argc, char **argv)
                                     NULL);
    g_object_unref (source_buffer);
   
-  gtk_window_set_default_size (GTK_WINDOW (window), 600, 400);
+  gtk_window_set_default_size (GTK_WINDOW (window), 800, 600);
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
+  mcm_gtk_platform_specific_init();
   gtk_widget_show_all (window);
   
 
