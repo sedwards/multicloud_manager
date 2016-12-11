@@ -532,7 +532,7 @@ do_appwindow (GtkWidget *do_widget)
                         0,                      0);
 
       gtk_window_set_default_size (GTK_WINDOW (window),
-                                   200, 200);
+                                   640, 480);
 
       contents = gtk_text_view_new ();
       gtk_widget_grab_focus (contents);

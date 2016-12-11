@@ -17,7 +17,8 @@ GTK_3_LDFLAGS = -lgtk-3.0 -lgdk-3.0 -lcairo-gobject -lgobject-2.0 -lpangocairo-1
 
 GTK_2_LDFLAGS = -lgtk-quartz-2.0 -lgdk-quartz-2.0 -lpangocairo-1.0 -lpango-1.0 -latk-1.0 -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lintl  -lpthread -lutil -lm -lgthread-2.0 -lcrypto -lssl -lintl -Wl,-framework -Wl,CoreFoundation
 
-OBJS = appwindow.o \
+OBJS = button_box.o \
+       appwindow.o \
        main.o
 
 #mcm:	$(demos_base)

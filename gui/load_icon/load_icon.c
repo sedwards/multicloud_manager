@@ -1,30 +1,5 @@
 #include <gtk/gtk.h>
 
-#if 0
-gboolean selection_changed(GtkTreeSelection *selection, GtkLabel *label) {
-    GtkTreeView *treeView;
-    GtkTreeModel *model;
-    GtkTreeIter iter;
-    gchar *active;
-    
-    treeView = gtk_tree_selection_get_tree_view(selection);
-    model = gtk_tree_view_get_model(treeView);
-    gtk_tree_selection_get_selected(selection, &model, &iter);
-    gtk_tree_model_get(model, &iter,
-                       1, &active,
-                       -1);
-
-    gtk_label_set_text(label, active);
-}
-#endif
-
-
-
-
-
-
-
-
 GtkDialog *
 hello_world_dialog_new ()
 {
@@ -97,7 +72,7 @@ int main(int argc, char *argv[]) {
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), "Cloud Instances");
-    gtk_window_set_default_size(GTK_WINDOW(window), 200, 50);
+    gtk_window_set_default_size(GTK_WINDOW(window), 640, 480);
 
 #if 0    
     treeView = gtk_tree_view_new_with_model(createModel());
@@ -118,11 +93,11 @@ int main(int argc, char *argv[]) {
 #endif
 
    // label = gtk_label_new("gftp-48x48.png");
- //   vbox = gtk_vbox_new(FALSE, 5);
+    vbox = gtk_vbox_new(FALSE, 5);
 
 //    gtk_box_pack_start(GTK_BOX(vbox), treeView, TRUE, TRUE, 5);
   //  gtk_box_pack_start(GTK_BOX(vbox), label, TRUE, TRUE, 5);
-  //  gtk_container_add(GTK_CONTAINER(window), vbox);
+    gtk_container_add(GTK_CONTAINER(window), vbox);
 
 //    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeView));
 //    gtk_tree_view_expand_all(GTK_TREE_VIEW(treeView));
@@ -130,13 +105,16 @@ int main(int argc, char *argv[]) {
 //                     G_CALLBACK(selection_changed), label);
 
     GtkWidget *button;
+    GtkWidget *button2;
     
     button = hello_world_button_new (10);
+    button2 = hello_world_button_new (10);
     g_signal_connect (button, "clicked",
                       G_CALLBACK (hello_world_dialog_show), NULL);
 
 
-    gtk_container_add(GTK_CONTAINER(window), button);
+    gtk_container_add(GTK_CONTAINER(vbox), button);
+    gtk_container_add(GTK_CONTAINER(vbox), button2);
     
     g_signal_connect(G_OBJECT(window), "destroy",
                      G_CALLBACK(gtk_main_quit), NULL);
