@@ -32,7 +32,7 @@ static GtkWidget *icon_label_box( gchar     *stock_icon_name,
     icon_theme = gtk_icon_theme_get_default ();
     
     /* stock icon from theme */
-    icon = gtk_icon_theme_load_icon (icon_theme, stock_icon_name, 40, 0, NULL);
+    icon = gtk_icon_theme_load_icon (icon_theme, stock_icon_name, 32, 0, NULL);
     image = gtk_image_new_from_pixbuf (icon);
     
     /* From local file if not from theme */
@@ -71,122 +71,85 @@ create_bbox (gint  horizontal,
 
   gtk_container_set_border_width (GTK_CONTAINER (bbox), 5);
   gtk_container_add (GTK_CONTAINER (frame), bbox);
-
-#if 0
-  /* Case for a button with an icon */
-  GtkIconTheme *icon_theme;
-  icon_theme = gtk_icon_theme_get_default ();
     
-    GdkPixbuf *icon;
-    GtkWidget *icon_image;
-    GtkWidget *label;
-    icon = gtk_icon_theme_load_icon (icon_theme,  "network-idle", 40, 0, NULL);
-    
-    icon_image = gtk_image_new_from_pixbuf (icon);
-    //      gtk_misc_set_padding (GTK_MISC (icon_image), 10, 10);
-    g_object_unref (G_OBJECT (icon));
-    button = gtk_button_new ();
-    
-    //label = gtk_label_new ("Providers and Instances");
-    gtk_button_set_label (button, "Providers and Instances");
-       gtk_button_set_always_show_image  (button, TRUE);
-    gtk_container_add (GTK_CONTAINER (button), icon_image);
-//    gtk_container_add (GTK_CONTAINER (bbox), label);
-    gtk_container_add (GTK_CONTAINER (bbox), button);
-    
-
-    GdkPixbuf *icon2;
-    GtkWidget *icon_image2;
-    
-    icon2 = gtk_icon_theme_load_icon (icon_theme,  "network-wired", 40, 0, NULL);
-    
-    icon_image2 = gtk_image_new_from_pixbuf (icon2);
-    //    gtk_misc_set_padding (GTK_MISC (icon_image), 10, 10);
-    g_object_unref (G_OBJECT (icon2));
-    button2 = gtk_button_new ();
-    gtk_button_set_label (button2, "Network Configurations");
-    gtk_container_add (GTK_CONTAINER (button2), icon_image2);
-    gtk_container_add (GTK_CONTAINER (bbox), button2);
-   
-#endif
-    
-    
-  /* stock buttons */
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), layout);
-  gtk_box_set_spacing (GTK_BOX (bbox), spacing);
-  
-  button = gtk_button_new_from_stock (GTK_STOCK_OK);
-  gtk_container_add (GTK_CONTAINER (bbox), button);
-  
-  button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
-  gtk_container_add (GTK_CONTAINER (bbox), button);
-  
-  button = gtk_button_new_from_stock (GTK_STOCK_HELP);
-  gtk_container_add (GTK_CONTAINER (bbox), button);
-    
-
-#if 0
-    GtkWidget *button2;
-    GtkWidget *sub_box;
-    GtkWidget *label;
-    GdkPixbuf *icon;
-    GtkWidget *image;
-
-    sub_box = gtk_hbox_new (FALSE, 0);
-    gtk_container_set_border_width (GTK_CONTAINER (sub_box), 2);
-   
-    
-   // /* Create box for image and label */
-   // box = gtk_box_new (FALSE, 0);
-  //  gtk_container_set_border_width (GTK_CONTAINER (box), 2);
-    /* Create a new button */
-    button2 = gtk_button_new ();
-    
-    /* Load theme */
-    GtkIconTheme *icon_theme;
-    icon_theme = gtk_icon_theme_get_default ();
-    
-    /* stock icon from theme */
-    icon = gtk_icon_theme_load_icon (icon_theme, "network-idle", 40, 0, NULL);
-    image = gtk_image_new_from_pixbuf (icon);
-    
-    /* From local file if not from theme */
-    // image = gtk_image_new_from_file ("some filename");
-    
-    /* Create a label for the button */
-    label = gtk_label_new ("some text");
-    
-    /* Pack the image and label into the box */
-    gtk_box_pack_start (GTK_BOX (sub_box), image, FALSE, FALSE, 3);
-    gtk_box_pack_end (GTK_BOX (sub_box), label, FALSE, FALSE, 3);
-   
-    gtk_container_add (GTK_CONTAINER (sub_box), button2);
-    gtk_container_add (GTK_CONTAINER (bbox), sub_box);
-#endif
-    
-    
-    GtkWidget *button2;
+ //////////////////////////////////////////////
+  /* Providers and Instances */
+    GtkWidget *instance_button;
     GtkWidget *box;
     
-    /* Create a new button */
-    button2 = gtk_button_new ();
+    /* Create a instance button */
+    instance_button = gtk_button_new ();
     
     /* Connect the "clicked" signal of the button to our callback */
-    g_signal_connect (button2, "clicked",
+    g_signal_connect (instance_button, "clicked",
                       G_CALLBACK (callback), (gpointer) "cool button");
     
     /* This calls our box creating function */
-    box = icon_label_box ("network-idle", "Providers and Such");
+    box = icon_label_box ("network-idle", "Providers and Instances");
     
     /* Pack and show all our widgets */
-    //   gtk_widget_show (box);
+    gtk_container_add (GTK_CONTAINER (instance_button), box);
+    gtk_container_add (GTK_CONTAINER (bbox), instance_button);
     
-    gtk_container_add (GTK_CONTAINER (button2), box);
+ //////////////////////////////////////
     
-    //    gtk_widget_show (button);
     
-    gtk_container_add (GTK_CONTAINER (bbox), button2);
+    //////////////////////////////////////////////
+    /* Providers and Instances */
+    GtkWidget *networks_button;
+ 
+    /* Create a networks button */
+    networks_button = gtk_button_new ();
     
+    /* Connect the "clicked" signal of the button to our callback */
+    g_signal_connect (networks_button, "clicked",
+                      G_CALLBACK (callback), (gpointer) "cool button");
+    
+    /* This calls our box creating function */
+    box = icon_label_box ("network-wired", "Cloud Networks");
+    
+    /* Pack and show all our widgets */
+    gtk_container_add (GTK_CONTAINER (networks_button), box);
+    gtk_container_add (GTK_CONTAINER (bbox), networks_button);
+    
+    //////////////////////////////////////
+    
+    //////////////////////////////////////////////
+    /* Drives */
+    GtkWidget *drives_button;
+    
+    /* Create a networks button */
+    drives_button = gtk_button_new ();
+    
+    /* Connect the "clicked" signal of the button to our callback */
+    g_signal_connect (drives_button, "clicked",
+                      G_CALLBACK (callback), (gpointer) "cool button");
+    
+    /* This calls our box creating function */
+    box = icon_label_box ("drive-multidisk", "Cloud Storge");
+    
+    /* Pack and show all our widgets */
+    gtk_container_add (GTK_CONTAINER (drives_button), box);
+    gtk_container_add (GTK_CONTAINER (bbox), drives_button);
+    
+    //////////////////////////////////////
+    
+    
+    
+//#if 0
+    /* stock buttons */
+    gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), layout);
+    gtk_box_set_spacing (GTK_BOX (bbox), spacing);
+    
+    button = gtk_button_new_from_stock (GTK_STOCK_OK);
+    gtk_container_add (GTK_CONTAINER (bbox), button);
+    
+    button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
+    gtk_container_add (GTK_CONTAINER (bbox), button);
+    
+    button = gtk_button_new_from_stock (GTK_STOCK_HELP);
+    gtk_container_add (GTK_CONTAINER (bbox), button);
+//#endif
     
   return frame;
 }
@@ -231,31 +194,21 @@ do_button_box (GtkWidget *do_widget)
     gtk_container_add (GTK_CONTAINER (frame_horz), vbox);
 
     gtk_box_pack_start (GTK_BOX (vbox), 
-			create_bbox (TRUE, "Spread", 40, GTK_BUTTONBOX_SPREAD),
+			create_bbox (TRUE, "Inventories", 40, GTK_BUTTONBOX_SPREAD),
 			TRUE, TRUE, 0);
 
     gtk_box_pack_start (GTK_BOX (vbox), 
-			create_bbox (TRUE, "Edge", 40, GTK_BUTTONBOX_EDGE),
+			create_bbox (TRUE, "Monitoring", 40, GTK_BUTTONBOX_EDGE),
 			TRUE, TRUE, 5);
     
     gtk_box_pack_start (GTK_BOX (vbox), 
-			create_bbox (TRUE, "Start", 40, GTK_BUTTONBOX_START),
+			create_bbox (TRUE, "Administration", 40, GTK_BUTTONBOX_START),
 			TRUE, TRUE, 5);
     
     gtk_box_pack_start (GTK_BOX (vbox), 
-			create_bbox (TRUE, "End", 40, GTK_BUTTONBOX_END),
+			create_bbox (TRUE, "Misc", 40, GTK_BUTTONBOX_END),
 			TRUE, TRUE, 5);
 
-#if 0
-      GtkWidget *button2;
-      GtkWidget *custom;
-      
-      /* Custom button with label */
-      button2 = gtk_button_new ();
-      custom = icon_label_box("network-wired", "custom labeled button");
-      gtk_container_add (GTK_CONTAINER (button2), custom);
-      gtk_container_add (GTK_CONTAINER (vbox), custom);
-#endif
       
 /* Vertical Button Boxes
  
