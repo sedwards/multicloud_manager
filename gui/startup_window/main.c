@@ -945,12 +945,12 @@ main (int argc, char **argv)
    * these few lines, which are just a hack so gtk-demo will work
    * in the GTK tree without installing it.
    */
-  if (g_file_test ("../../gdk-pixbuf/libpixbufloader-pnm.la",
-                   G_FILE_TEST_EXISTS))
-    {
-      g_setenv ("GDK_PIXBUF_MODULE_FILE", "../../gdk-pixbuf/gdk-pixbuf.loaders", TRUE);
-      g_setenv ("GTK_IM_MODULE_FILE", "../../modules/input/immodules.cache", TRUE);
-    }
+  //if (g_file_test ("../../gdk-pixbuf/libpixbufloader-pnm.la",
+  //                 G_FILE_TEST_EXISTS))
+  //  {
+  //    g_setenv ("GDK_PIXBUF_MODULE_FILE", "../../gdk-pixbuf/gdk-pixbuf.loaders", TRUE);
+  //    g_setenv ("GTK_IM_MODULE_FILE", "../../modules/input/immodules.cache", TRUE);
+  //  }
   /* -- End of hack -- */
   
   gtk_init (&argc, &argv);

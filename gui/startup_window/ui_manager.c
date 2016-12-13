@@ -187,7 +187,7 @@ do_ui_manager (GtkWidget *window)
       g_object_unref (actions);
       gtk_window_add_accel_group (GTK_WINDOW (window), 
 				  gtk_ui_manager_get_accel_group (ui));
-      gtk_window_set_title (GTK_WINDOW (window), "UI Manager");
+      gtk_window_set_title (GTK_WINDOW (window), "MultiCloud Infrastructure Client");
       gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 
       
