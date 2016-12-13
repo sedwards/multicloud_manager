@@ -19,6 +19,7 @@ GTK_2_LDFLAGS = -lgtk-quartz-2.0 -lgdk-quartz-2.0 -lpangocairo-1.0 -lpango-1.0 -
 
 OBJS = button_box.o \
        platform_specific.o \
+       log_window.o \
        main.o \
        ui_manager.o
 

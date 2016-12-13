@@ -751,7 +751,7 @@ create_text (GtkTextBuffer **buffer,
   
   if (is_source)
     {
-      font_desc = pango_font_description_from_string ("monospace");
+      font_desc = pango_font_description_from_string ("Menlo Regular 11");
       gtk_widget_modify_font (text_view, font_desc);
       pango_font_description_free (font_desc);
 
@@ -928,6 +928,8 @@ setup_default_icon (void)
 GtkWidget *
 do_ui_manager (GtkWidget * window);
 
+GtkWidget *create_log_box( void );
+
 void mcm_gtk_platform_specific_init(void);
 
 int
@@ -935,40 +937,39 @@ main (int argc, char **argv)
 {
   GtkWidget *window;
   GtkWidget *ui_manager;
+  GtkWidget *vpaned;
   GtkWidget *notebook;
   GtkWidget *mainbox;
   GtkWidget *hbox;
   GtkWidget *tree;
+  GtkWidget *text;
   GtkTextTag *tag;
-
-  /* Most code in gtk-demo is intended to be exemplary, but not
-   * these few lines, which are just a hack so gtk-demo will work
-   * in the GTK tree without installing it.
-   */
-  //if (g_file_test ("../../gdk-pixbuf/libpixbufloader-pnm.la",
-  //                 G_FILE_TEST_EXISTS))
-  //  {
-  //    g_setenv ("GDK_PIXBUF_MODULE_FILE", "../../gdk-pixbuf/gdk-pixbuf.loaders", TRUE);
-  //    g_setenv ("GTK_IM_MODULE_FILE", "../../modules/input/immodules.cache", TRUE);
-  //  }
-  /* -- End of hack -- */
   
   gtk_init (&argc, &argv);
 
   setup_default_icon ();
   
+  /* Setup Main Window */
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title (GTK_WINDOW (window), "GTK+ Code Demos");
   g_signal_connect_after (window, "destroy",
 		    G_CALLBACK (gtk_main_quit), NULL);
 
-  gtk_widget_realize (window);
-
+  /* Add classic menu bar */
   ui_manager = do_ui_manager (window);
-  //gtk_container_add (GTK_CONTAINER (window), ui_manager);
+
+  /* Create a pane to hold all of our child windows */
+  vpaned = gtk_vpaned_new ();
+  gtk_container_add (GTK_CONTAINER(ui_manager), vpaned);
+  gtk_widget_show (vpaned);
 
   mainbox = gtk_box_new (FALSE, 0);
-  gtk_container_add (GTK_CONTAINER (ui_manager), mainbox);
+  gtk_paned_add1 (GTK_PANED(vpaned), mainbox);
+    //  gtk_container_add (GTK_CONTAINER (vpaned), mainbox);
+    
+    
+//  mainbox = gtk_box_new (FALSE, 0);
+//  gtk_container_add (GTK_CONTAINER (ui_manager), mainbox);
 
     
   //hbox = gtk_hbox_new (FALSE, 0);
@@ -997,7 +998,6 @@ main (int argc, char **argv)
 			    create_text (&source_buffer, TRUE),
 			    gtk_label_new_with_mnemonic ("_Source"));
 
-
   tag = gtk_text_buffer_create_tag (source_buffer, "comment",
 				    "foreground", "DodgerBlue",
                                     NULL);
@@ -1023,7 +1023,7 @@ main (int argc, char **argv)
 
   gtk_box_pack_start (GTK_BOX (mainbox), notebook, TRUE, TRUE, 0);
     
-
+#if 0
     GtkWidget *dlbox, *winpane, *dlpane, *logpane, *logwdw, *tempwid, *transfer_scroll, *log_table;
     GtkAdjustment * logwdw_vadj;
     char *dltitles[2];
@@ -1061,7 +1061,7 @@ main (int argc, char **argv)
     logwdw_vadj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (tempwid));
     gtk_text_buffer_get_iter_at_offset (textbuf, &iter, 0);
     logwdw_textmark = gtk_text_buffer_create_mark (textbuf, "end", &iter, 1);
-
+#endif
 //    gtk_paned_pack1 (GTK_PANED (logpane), log_table, 1, 1);
 //    gtk_box_pack_end (GTK_BOX (mainbox), logpane, TRUE, TRUE, 0);
 //    gtk_box_pack_end (GTK_BOX (mainbox), logpane, TRUE, TRUE, 0);
@@ -1071,8 +1071,16 @@ main (int argc, char **argv)
     //gtk_container_set_border_width (GTK_CONTAINER (transfer_scroll), 5);
 //    gtk_container_set_border_width (GTK_CONTAINER (tempwid), 5);
 //#endif
+
+  /* Create log window for operations */
+  text = create_log_box ();
+ // gtk_paned_add2 (GTK_PANED(vpaned), text);
+  gtk_paned_pack2 (GTK_PANED (vpaned), text, 1, 1);
+  gtk_paned_set_position(GTK_PANED (vpaned), 650);
+//  gtk_widget_show (text);
     
-  gtk_window_set_default_size (GTK_WINDOW (window), 800, 600);
+  /* Finish drawing our completed window*/
+  gtk_window_set_default_size (GTK_WINDOW (window), 1152, 864);
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
   mcm_gtk_platform_specific_init();
   gtk_widget_show_all (window);
