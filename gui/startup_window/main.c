@@ -925,13 +925,18 @@ setup_default_icon (void)
     }
 }
 
+GtkWidget *
+do_ui_manager (GtkWidget * window);
+
 void mcm_gtk_platform_specific_init(void);
 
 int
 main (int argc, char **argv)
 {
   GtkWidget *window;
+  GtkWidget *ui_manager;
   GtkWidget *notebook;
+  GtkWidget *mainbox;
   GtkWidget *hbox;
   GtkWidget *tree;
   GtkTextTag *tag;
@@ -957,14 +962,27 @@ main (int argc, char **argv)
   g_signal_connect_after (window, "destroy",
 		    G_CALLBACK (gtk_main_quit), NULL);
 
-  hbox = gtk_hbox_new (FALSE, 0);
-  gtk_container_add (GTK_CONTAINER (window), hbox);
+  gtk_widget_realize (window);
 
+  ui_manager = do_ui_manager (window);
+  gtk_container_add (GTK_CONTAINER (window), ui_manager);
+
+  mainbox = gtk_box_new (FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (ui_manager), mainbox);
+
+    
+  //hbox = gtk_hbox_new (FALSE, 0);
+
+//  gtk_box_pack_start (GTK_BOX (hbox), ui_manager, FALSE, FALSE, 0);
+//  gtk_box_pack_start (GTK_BOX (mainbox), hbox, FALSE, FALSE, 0);
+    
   tree = create_tree ();
-  gtk_box_pack_start (GTK_BOX (hbox), tree, FALSE, FALSE, 0);
-
+  gtk_box_pack_start (GTK_BOX (mainbox), tree, FALSE, FALSE, 0);
+//  gtk_box_pack_start (GTK_BOX (ui_manager), tree, FALSE, FALSE, 0);
+//  gtk_container_add (GTK_CONTAINER (window), tree);
+    
   notebook = gtk_notebook_new ();
-  gtk_box_pack_start (GTK_BOX (hbox), notebook, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (mainbox), notebook, TRUE, TRUE, 0);
 
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
 			    create_text (&info_buffer, FALSE),
@@ -1002,7 +1020,9 @@ main (int argc, char **argv)
  				    "foreground", "DarkGoldenrod4",
                                     NULL);
    g_object_unref (source_buffer);
-  
+
+  gtk_box_pack_start (GTK_BOX (mainbox), notebook, TRUE, TRUE, 0);
+    
   gtk_window_set_default_size (GTK_WINDOW (window), 800, 600);
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
   mcm_gtk_platform_specific_init();
