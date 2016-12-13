@@ -1032,9 +1032,11 @@ main (int argc, char **argv)
     GtkTextIter iter;
     GtkTextMark * logwdw_textmark;
 
+    winpane = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
+    
 //    logpane = gtk_vpaned_new ();
 //    gtk_paned_pack1 (GTK_PANED (logpane), dlpane, 1, 1);
-#if 0
+
     log_table = gtk_table_new (1, 2, FALSE);
     //gftp_lookup_global_option ("log_height", &tmplookup);
     gtk_widget_set_size_request (log_table, -1, tmplookup);
@@ -1045,10 +1047,10 @@ main (int argc, char **argv)
     gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (logwdw), GTK_WRAP_WORD);
     
     textbuf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (logwdw));
-#endif
-    //transfer_scroll = gtk_scrolled_window_new (NULL, NULL);
- //   tempwid = gtk_scrolled_window_new (NULL, NULL);
-#if 0
+
+    transfer_scroll = gtk_scrolled_window_new (NULL, NULL);
+    tempwid = gtk_scrolled_window_new (NULL, NULL);
+
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (tempwid),
                                     GTK_POLICY_AUTOMATIC,
                                     GTK_POLICY_AUTOMATIC);
@@ -1059,14 +1061,16 @@ main (int argc, char **argv)
     logwdw_vadj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (tempwid));
     gtk_text_buffer_get_iter_at_offset (textbuf, &iter, 0);
     logwdw_textmark = gtk_text_buffer_create_mark (textbuf, "end", &iter, 1);
-    
-    gtk_paned_pack2 (GTK_PANED (logpane), log_table, 1, 1);
-    gtk_box_pack_start (GTK_BOX (mainbox), logpane, TRUE, TRUE, 0);
 
-    //gtk_container_set_border_width (GTK_CONTAINER (transfer_scroll), 5);
-    gtk_container_set_border_width (GTK_CONTAINER (tempwid), 5);
-#endif
+//    gtk_paned_pack1 (GTK_PANED (logpane), log_table, 1, 1);
+//    gtk_box_pack_end (GTK_BOX (mainbox), logpane, TRUE, TRUE, 0);
+//    gtk_box_pack_end (GTK_BOX (mainbox), logpane, TRUE, TRUE, 0);
+// gtk_box_pack_start (GTK_BOX (mainbox), log_table, TRUE, TRUE, 0);
+// gtk_box_pack_start (GTK_BOX (mainbox), transfer_scroll, TRUE, TRUE, 0);
     
+    //gtk_container_set_border_width (GTK_CONTAINER (transfer_scroll), 5);
+//    gtk_container_set_border_width (GTK_CONTAINER (tempwid), 5);
+//#endif
     
   gtk_window_set_default_size (GTK_WINDOW (window), 800, 600);
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
