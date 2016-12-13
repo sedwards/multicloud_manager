@@ -11,7 +11,6 @@ struct _Demo
 };
 
 GtkWidget *do_button_box (GtkWidget *do_widget);
-GtkWidget *do_appwindow (GtkWidget *do_widget);
 #if 0
 GtkWidget *do_appwindow (GtkWidget *do_widget);
 GtkWidget *do_assistant (GtkWidget *do_widget);
@@ -121,7 +120,6 @@ Demo testgtk_demos[] = {
 #endif
 
 Demo testgtk_demos[] = {
-  { "Application main window", "appwindow.c", do_appwindow, NULL }, 
   { "Button Boxes", "button_box.c", do_button_box, NULL }, 
   { NULL } 
 };
