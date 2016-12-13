@@ -965,7 +965,7 @@ main (int argc, char **argv)
   gtk_widget_realize (window);
 
   ui_manager = do_ui_manager (window);
-  gtk_container_add (GTK_CONTAINER (window), ui_manager);
+  //gtk_container_add (GTK_CONTAINER (window), ui_manager);
 
   mainbox = gtk_box_new (FALSE, 0);
   gtk_container_add (GTK_CONTAINER (ui_manager), mainbox);
@@ -1023,8 +1023,53 @@ main (int argc, char **argv)
 
   gtk_box_pack_start (GTK_BOX (mainbox), notebook, TRUE, TRUE, 0);
     
+
+    GtkWidget *dlbox, *winpane, *dlpane, *logpane, *logwdw, *tempwid, *transfer_scroll, *log_table;
+    GtkAdjustment * logwdw_vadj;
+    char *dltitles[2];
+    intptr_t tmplookup;
+    GtkTextBuffer * textbuf;
+    GtkTextIter iter;
+    GtkTextMark * logwdw_textmark;
+
+//    logpane = gtk_vpaned_new ();
+//    gtk_paned_pack1 (GTK_PANED (logpane), dlpane, 1, 1);
+#if 0
+    log_table = gtk_table_new (1, 2, FALSE);
+    //gftp_lookup_global_option ("log_height", &tmplookup);
+    gtk_widget_set_size_request (log_table, -1, tmplookup);
+    
+    logwdw = gtk_text_view_new ();
+    gtk_text_view_set_editable (GTK_TEXT_VIEW (logwdw), FALSE);
+    gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (logwdw), FALSE);
+    gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (logwdw), GTK_WRAP_WORD);
+    
+    textbuf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (logwdw));
+#endif
+    //transfer_scroll = gtk_scrolled_window_new (NULL, NULL);
+ //   tempwid = gtk_scrolled_window_new (NULL, NULL);
+#if 0
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (tempwid),
+                                    GTK_POLICY_AUTOMATIC,
+                                    GTK_POLICY_AUTOMATIC);
+    gtk_container_add (GTK_CONTAINER (tempwid), logwdw);
+    gtk_table_attach (GTK_TABLE (log_table), tempwid, 0, 1, 0, 1,
+                      GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND | GTK_SHRINK,
+                      0, 0);
+    logwdw_vadj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (tempwid));
+    gtk_text_buffer_get_iter_at_offset (textbuf, &iter, 0);
+    logwdw_textmark = gtk_text_buffer_create_mark (textbuf, "end", &iter, 1);
+    
+    gtk_paned_pack2 (GTK_PANED (logpane), log_table, 1, 1);
+    gtk_box_pack_start (GTK_BOX (mainbox), logpane, TRUE, TRUE, 0);
+
+    //gtk_container_set_border_width (GTK_CONTAINER (transfer_scroll), 5);
+    gtk_container_set_border_width (GTK_CONTAINER (tempwid), 5);
+#endif
+    
+    
   gtk_window_set_default_size (GTK_WINDOW (window), 800, 600);
-  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
   mcm_gtk_platform_specific_init();
   gtk_widget_show_all (window);
   
