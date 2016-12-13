@@ -752,7 +752,7 @@ create_text (GtkTextBuffer **buffer,
   if (is_source)
     {
       font_desc = pango_font_description_from_string ("Menlo Regular 11");
-      gtk_widget_modify_font (text_view, font_desc);
+      gtk_widget_override_font (text_view, font_desc);
       pango_font_description_free (font_desc);
 
       gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (text_view),
@@ -937,10 +937,10 @@ main (int argc, char **argv)
 {
   GtkWidget *window;
   GtkWidget *ui_manager;
-  GtkWidget *vpaned;
+  GtkWidget *paned;
   GtkWidget *notebook;
   GtkWidget *mainbox;
-  GtkWidget *hbox;
+//  GtkWidget *hbox;
   GtkWidget *tree;
   GtkWidget *text;
   GtkTextTag *tag;
@@ -959,29 +959,19 @@ main (int argc, char **argv)
   ui_manager = do_ui_manager (window);
 
   /* Create a pane to hold all of our child windows */
-  vpaned = gtk_vpaned_new ();
-  gtk_container_add (GTK_CONTAINER(ui_manager), vpaned);
-  gtk_widget_show (vpaned);
+  paned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
+  gtk_container_add (GTK_CONTAINER(ui_manager), paned);
+  gtk_widget_show (paned);
 
   mainbox = gtk_box_new (FALSE, 0);
-  gtk_paned_add1 (GTK_PANED(vpaned), mainbox);
-    //  gtk_container_add (GTK_CONTAINER (vpaned), mainbox);
-    
-    
-//  mainbox = gtk_box_new (FALSE, 0);
-//  gtk_container_add (GTK_CONTAINER (ui_manager), mainbox);
+  gtk_paned_add1 (GTK_PANED(paned), mainbox);
 
-    
-  //hbox = gtk_hbox_new (FALSE, 0);
-
-//  gtk_box_pack_start (GTK_BOX (hbox), ui_manager, FALSE, FALSE, 0);
-//  gtk_box_pack_start (GTK_BOX (mainbox), hbox, FALSE, FALSE, 0);
-    
+  /* Source code treeview */
+    // FIXME will become servers,clusters and instances
   tree = create_tree ();
   gtk_box_pack_start (GTK_BOX (mainbox), tree, FALSE, FALSE, 0);
-//  gtk_box_pack_start (GTK_BOX (ui_manager), tree, FALSE, FALSE, 0);
-//  gtk_container_add (GTK_CONTAINER (window), tree);
-    
+
+  /* Notebook view on right split */
   notebook = gtk_notebook_new ();
   gtk_box_pack_start (GTK_BOX (mainbox), notebook, TRUE, TRUE, 0);
 
@@ -1062,22 +1052,12 @@ main (int argc, char **argv)
     gtk_text_buffer_get_iter_at_offset (textbuf, &iter, 0);
     logwdw_textmark = gtk_text_buffer_create_mark (textbuf, "end", &iter, 1);
 #endif
-//    gtk_paned_pack1 (GTK_PANED (logpane), log_table, 1, 1);
-//    gtk_box_pack_end (GTK_BOX (mainbox), logpane, TRUE, TRUE, 0);
-//    gtk_box_pack_end (GTK_BOX (mainbox), logpane, TRUE, TRUE, 0);
-// gtk_box_pack_start (GTK_BOX (mainbox), log_table, TRUE, TRUE, 0);
-// gtk_box_pack_start (GTK_BOX (mainbox), transfer_scroll, TRUE, TRUE, 0);
-    
-    //gtk_container_set_border_width (GTK_CONTAINER (transfer_scroll), 5);
-//    gtk_container_set_border_width (GTK_CONTAINER (tempwid), 5);
-//#endif
 
   /* Create log window for operations */
   text = create_log_box ();
  // gtk_paned_add2 (GTK_PANED(vpaned), text);
-  gtk_paned_pack2 (GTK_PANED (vpaned), text, 1, 1);
-  gtk_paned_set_position(GTK_PANED (vpaned), 650);
-//  gtk_widget_show (text);
+  gtk_paned_pack2 (GTK_PANED (paned), text, 1, 1);
+  gtk_paned_set_position(GTK_PANED (paned), 650);
     
   /* Finish drawing our completed window*/
   gtk_window_set_default_size (GTK_WINDOW (window), 1152, 864);
