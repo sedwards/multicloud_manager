@@ -959,7 +959,7 @@ main (int argc, char **argv)
   ui_manager = do_ui_manager (window);
 
   /* Create a pane to hold all of our child windows */
-  paned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
+  paned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
   gtk_container_add (GTK_CONTAINER(ui_manager), paned);
   gtk_widget_show (paned);
 
@@ -1012,46 +1012,7 @@ main (int argc, char **argv)
    g_object_unref (source_buffer);
 
   gtk_box_pack_start (GTK_BOX (mainbox), notebook, TRUE, TRUE, 0);
-    
-#if 0
-    GtkWidget *dlbox, *winpane, *dlpane, *logpane, *logwdw, *tempwid, *transfer_scroll, *log_table;
-    GtkAdjustment * logwdw_vadj;
-    char *dltitles[2];
-    intptr_t tmplookup;
-    GtkTextBuffer * textbuf;
-    GtkTextIter iter;
-    GtkTextMark * logwdw_textmark;
-
-    winpane = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
-    
-//    logpane = gtk_vpaned_new ();
-//    gtk_paned_pack1 (GTK_PANED (logpane), dlpane, 1, 1);
-
-    log_table = gtk_table_new (1, 2, FALSE);
-    //gftp_lookup_global_option ("log_height", &tmplookup);
-    gtk_widget_set_size_request (log_table, -1, tmplookup);
-    
-    logwdw = gtk_text_view_new ();
-    gtk_text_view_set_editable (GTK_TEXT_VIEW (logwdw), FALSE);
-    gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (logwdw), FALSE);
-    gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (logwdw), GTK_WRAP_WORD);
-    
-    textbuf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (logwdw));
-
-    transfer_scroll = gtk_scrolled_window_new (NULL, NULL);
-    tempwid = gtk_scrolled_window_new (NULL, NULL);
-
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (tempwid),
-                                    GTK_POLICY_AUTOMATIC,
-                                    GTK_POLICY_AUTOMATIC);
-    gtk_container_add (GTK_CONTAINER (tempwid), logwdw);
-    gtk_table_attach (GTK_TABLE (log_table), tempwid, 0, 1, 0, 1,
-                      GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND | GTK_SHRINK,
-                      0, 0);
-    logwdw_vadj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (tempwid));
-    gtk_text_buffer_get_iter_at_offset (textbuf, &iter, 0);
-    logwdw_textmark = gtk_text_buffer_create_mark (textbuf, "end", &iter, 1);
-#endif
+  
 
   /* Create log window for operations */
   text = create_log_box ();
