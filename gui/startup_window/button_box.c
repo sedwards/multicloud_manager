@@ -291,9 +291,9 @@ create_misc_bbox (gint  horizontal,
 }
 
 GtkWidget *
-do_button_box (GtkWidget *do_widget)
+do_button_box (GtkWidget *window)
 {
-  static GtkWidget *window = NULL;
+//  static GtkWidget *window = NULL;
   GtkWidget *main_vbox;
   GtkWidget *vbox;
   GtkWidget *hbox;
@@ -306,18 +306,18 @@ do_button_box (GtkWidget *do_widget)
     g_object_set(default_settings, "gtk-button-images", TRUE, NULL);
     
     
-  if (!window)
-  {
-    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_screen (GTK_WINDOW (window),
-			   gtk_widget_get_screen (do_widget));
-    gtk_window_set_title (GTK_WINDOW (window), "Button Boxes");
+//  if (!window)
+//  {
+//    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+//    gtk_window_set_screen (GTK_WINDOW (window),
+//			   gtk_widget_get_screen (do_widget));
+//    gtk_window_set_title (GTK_WINDOW (window), "Button Boxes");
     
-    g_signal_connect (window, "destroy",
-		      G_CALLBACK (gtk_widget_destroyed),
-		      &window);
+//    g_signal_connect (window, "destroy",
+//		      G_CALLBACK (gtk_widget_destroyed),
+//		      &window);
     
-    gtk_container_set_border_width (GTK_CONTAINER (window), 10);
+//    gtk_container_set_border_width (GTK_CONTAINER (window), 10);
 
     main_vbox = gtk_vbox_new (FALSE, 0);
     gtk_container_add (GTK_CONTAINER (window), main_vbox);
@@ -374,18 +374,18 @@ do_button_box (GtkWidget *do_widget)
 			TRUE, TRUE, 5);
 */
        
-  }
+//  }
 
-  if (!gtk_widget_get_visible (window))
-    {
-      gtk_window_set_default_size (GTK_WINDOW (window), 600, 400);
-      gtk_widget_show_all (window);
-    }
-  else
-    {	 
-      gtk_widget_destroy (window);
-      window = NULL;
-    }
+//  if (!gtk_widget_get_visible (window))
+//    {
+///      gtk_window_set_default_size (GTK_WINDOW (window), 600, 400);
+//      gtk_widget_show_all (window);
+//    }
+//  else
+//    {	 
+//      gtk_widget_destroy (window);
+//      window = NULL;
+//    }
 
   return window;
 }

@@ -109,6 +109,7 @@ window_closed_cb (GtkWidget *window, gpointer data)
   g_free (cbdata);
 }
 
+
 gboolean
 read_line (FILE *stream, GString *str)
 {
@@ -937,6 +938,7 @@ main (int argc, char **argv)
 {
   GtkWidget *window;
   GtkWidget *ui_manager;
+  GtkWidget *button_box;
   GtkWidget *paned;
   GtkWidget *notebook;
   GtkWidget *mainbox;
@@ -971,7 +973,12 @@ main (int argc, char **argv)
   tree = create_tree ();
   gtk_box_pack_start (GTK_BOX (mainbox), tree, FALSE, FALSE, 0);
 
-  /* Notebook view on right split */
+
+
+  button_box = do_button_box (mainbox);
+
+
+  /* Notebook view on right split 
   notebook = gtk_notebook_new ();
   gtk_box_pack_start (GTK_BOX (mainbox), notebook, TRUE, TRUE, 0);
 
@@ -987,31 +994,8 @@ main (int argc, char **argv)
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
 			    create_text (&source_buffer, TRUE),
 			    gtk_label_new_with_mnemonic ("_Source"));
-
-  tag = gtk_text_buffer_create_tag (source_buffer, "comment",
-				    "foreground", "DodgerBlue",
-                                    NULL);
-  tag = gtk_text_buffer_create_tag (source_buffer, "type",
-				    "foreground", "ForestGreen",
-                                    NULL);
-  tag = gtk_text_buffer_create_tag (source_buffer, "string",
-				    "foreground", "RosyBrown",
-				    "weight", PANGO_WEIGHT_BOLD,
-                                    NULL);
-  tag = gtk_text_buffer_create_tag (source_buffer, "control",
-				    "foreground", "purple",
-                                    NULL);
-  tag = gtk_text_buffer_create_tag (source_buffer, "preprocessor",
-				    "style", PANGO_STYLE_OBLIQUE,
- 				    "foreground", "burlywood4",
-                                    NULL);
-  tag = gtk_text_buffer_create_tag (source_buffer, "function",
-				    "weight", PANGO_WEIGHT_BOLD,
- 				    "foreground", "DarkGoldenrod4",
-                                    NULL);
-   g_object_unref (source_buffer);
-
-  gtk_box_pack_start (GTK_BOX (mainbox), notebook, TRUE, TRUE, 0);
+*/
+  gtk_box_pack_start (GTK_BOX (mainbox), button_box, TRUE, TRUE, 0);
   
 
   /* Create log window for operations */
@@ -1027,9 +1011,11 @@ main (int argc, char **argv)
   gtk_widget_show_all (window);
   
 
-  load_file (testgtk_demos[0].filename);
+  //load_file (testgtk_demos[0].filename);
   
   gtk_main ();
 
   return 0;
 }
+
+
