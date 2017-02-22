@@ -10,7 +10,7 @@ GDK_PIXBUF = -I/Users/sedwards/gtk/inst/include/gdk-pixbuf-2.0
 ATK_INCLUDE = -I/Users/sedwards/gtk/inst/include/atk-1.0
 
 GTK_LIB = -L/Users/sedwards/gtk/inst/lib
-CC = gcc -g -Wall
+CC = gcc -g -Wall -Wno-deprecated-declarations
 CFLAGS = $(INCLUDE) $(GTK_INCLUDE) $(GLIB_INCLUDE) $(FREETYPE2_INCLUDE) $(PANGO_INCLUDE) $(CAIRO_INCLUDE) $(GDK_PIXBUF) $(ATK_INCLUDE)
 
 GTK_3_LDFLAGS = -lgtk-3.0 -lgdk-3.0 -lcairo-gobject -lgobject-2.0 -lpangocairo-1.0 -lpango-1.0 -latk-1.0 -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lintl  -lpthread -lutil -lm -lgthread-2.0 -lintl -Wl,-framework -Wl,CoreFoundation
@@ -21,6 +21,7 @@ OBJS = button_box.o \
        platform_specific.o \
        log_window.o \
        main.o \
+       treeview.o \
        ui_manager.o
 
 #mcm:	$(demos_base)

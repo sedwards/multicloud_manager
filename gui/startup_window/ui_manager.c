@@ -149,10 +149,10 @@ do_ui_manager (GtkWidget *window)
   //if (!window)
  //   {
       GtkWidget *box1;
-      GtkWidget *box2;
-      GtkWidget *separator;
-      GtkWidget *label;
-      GtkWidget *button;
+      //GtkWidget *box2;
+      //GtkWidget *separator;
+      //GtkWidget *label;
+      //GtkWidget *button;
       GtkUIManager *ui;
       GtkActionGroup *actions;
       GError *error = NULL;

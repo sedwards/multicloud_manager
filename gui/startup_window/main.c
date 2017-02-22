@@ -773,6 +773,7 @@ create_text (GtkTextBuffer **buffer,
   return scrolled_window;
 }
 
+#if 0
 static GtkWidget *
 create_tree (void)
 {
@@ -872,6 +873,7 @@ create_tree (void)
 
   return box;
 }
+#endif
 
 static void
 setup_default_icon (void)
@@ -970,11 +972,11 @@ main (int argc, char **argv)
 
   /* Source code treeview */
     // FIXME will become servers,clusters and instances
-  tree = create_tree ();
-  gtk_box_pack_start (GTK_BOX (mainbox), tree, FALSE, FALSE, 0);
+  tree = do_treeview (mainbox);
+  //gtk_box_pack_start (GTK_BOX (mainbox), tree, FALSE, FALSE, 0);
 
 
-
+  /* Main Window Button Box */
   button_box = do_button_box (mainbox);
 
 

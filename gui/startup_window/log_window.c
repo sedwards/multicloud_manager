@@ -4,10 +4,10 @@
 GtkWidget *create_log_box( void )
 {
     GtkWidget *table;
-    GtkWidget *text;
-    GtkWidget *hscrollbar;
-    GtkWidget *vscrollbar;
-    GtkEntryBuffer *buffer;
+    //GtkWidget *text;
+    //GtkWidget *hscrollbar;
+    //GtkWidget *vscrollbar;
+    //GtkEntryBuffer *buffer;
     
     /* Create a table to hold the text widget and scrollbars */
     table = gtk_table_new (2, 2, FALSE);
