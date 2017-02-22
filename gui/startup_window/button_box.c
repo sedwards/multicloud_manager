@@ -319,14 +319,14 @@ do_button_box (GtkWidget *window)
     
 //    gtk_container_set_border_width (GTK_CONTAINER (window), 10);
 
-    main_vbox = gtk_vbox_new (FALSE, 0);
-    gtk_container_add (GTK_CONTAINER (window), main_vbox);
+//    main_vbox = gtk_vbox_new (FALSE, 0);
+//    gtk_container_add (GTK_CONTAINER (window), main_vbox);
     
     frame_horz = gtk_frame_new ("Horizontal Button Boxes");
-    gtk_box_pack_start (GTK_BOX (main_vbox), frame_horz, TRUE, TRUE, 10);
+    gtk_box_pack_start (GTK_BOX (window), frame_horz, TRUE, TRUE, 10);
     
     vbox = gtk_vbox_new (FALSE, 0);
-    gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
     gtk_container_add (GTK_CONTAINER (frame_horz), vbox);
 
     gtk_box_pack_start (GTK_BOX (vbox), 
@@ -373,19 +373,6 @@ do_button_box (GtkWidget *window)
 			create_bbox (FALSE, "End", 30, GTK_BUTTONBOX_END),
 			TRUE, TRUE, 5);
 */
-       
-//  }
-
-//  if (!gtk_widget_get_visible (window))
-//    {
-///      gtk_window_set_default_size (GTK_WINDOW (window), 600, 400);
-//      gtk_widget_show_all (window);
-//    }
-//  else
-//    {	 
-//      gtk_widget_destroy (window);
-//      window = NULL;
-//    }
 
   return window;
 }

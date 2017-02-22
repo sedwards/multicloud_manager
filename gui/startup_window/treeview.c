@@ -82,20 +82,6 @@ gboolean selection_changed(GtkTreeSelection *selection, GtkLabel *label) {
     gtk_label_set_text(label, active);
 }
 
-//int main(int argc, char *argv[]) {
-//    GtkWidget *window;
-//    GtkWidget *treeView;
-//    GtkCellRenderer *renderer;
-//    GtkTreeViewColumn *column;
-//    GtkWidget *label;
-//    GtkWidget *box;
-//    GtkTreeSelection *selection;
-//
-//    gtk_init(&argc, &argv);
-//
-//    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-//    gtk_window_set_title(GTK_WINDOW(window), "Cloud Instances");
-
 GtkWidget *
 do_treeview (GtkWidget *window)
 {
@@ -105,8 +91,6 @@ do_treeview (GtkWidget *window)
     GtkWidget *label;
     GtkWidget *box;
     GtkTreeSelection *selection;
-    
-//    gtk_window_set_default_size(GTK_WINDOW(window), 200, 50);
 
     treeView = gtk_tree_view_new_with_model(createModel());
 
@@ -128,7 +112,7 @@ do_treeview (GtkWidget *window)
     box = gtk_box_new(FALSE, 5);
 
     gtk_box_pack_start(GTK_BOX(box), treeView, TRUE, TRUE, 5);
-    gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 5);
+ //   gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 5);
     gtk_container_add(GTK_CONTAINER(window), box);
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeView));

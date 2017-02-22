@@ -49,7 +49,8 @@ main (int argc, char **argv)
   gtk_widget_show (paned);
 
   mainbox = gtk_box_new (FALSE, 0);
-  gtk_paned_add1 (GTK_PANED(paned), mainbox);
+  //gtk_paned_add1 (GTK_PANED(paned), mainbox);
+  gtk_paned_pack1 (GTK_PANED (paned), mainbox, 1, 1);
 
 
   /* treeview servers,clusters and instances */
@@ -60,7 +61,7 @@ main (int argc, char **argv)
   /* Main Window Button Box */
   button_box = do_button_box (mainbox);
   gtk_box_pack_start (GTK_BOX (mainbox), button_box, TRUE, TRUE, 0);
-  
+
 
   /* Create log window for operations */
   text = create_log_box ();
@@ -71,12 +72,16 @@ main (int argc, char **argv)
   /* Label - FIXME: to become status bar after debugging */
     
   /* Finish drawing our completed window*/
-  gtk_window_set_default_size (GTK_WINDOW (window), 1152, 864);
+  gtk_window_set_default_size (GTK_WINDOW (window), 1024, 768);
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 
   /* Local Platform Hacks */
   mcm_gtk_platform_specific_init();
   gtk_widget_show_all (window);
+
+  /* signals */
+  g_signal_connect(G_OBJECT(window), "destroy",
+                   G_CALLBACK(gtk_main_quit), NULL);
   
   gtk_main ();
 
